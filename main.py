@@ -112,7 +112,7 @@ def main():
 
     while start:
         text =  "\n\n\n    Welcome To Flappy Bird\n\n"\
-                "Rules: \n1.Don't Touch Pipes\n2.Don't Touch The Red Lines\n\n\n"\
+                "Rules: \n1.Don't Touch Pipes\n2.Don't Touch The Red Lines\n3.Press 'Spacebar' to Jump\n\n"\
                 "'SpaceBar'-> Start The Game"
         
         gameDisplay.fill(BLACK)
