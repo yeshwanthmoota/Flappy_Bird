@@ -25,21 +25,10 @@ FPS = 60
 # Custom Events
 GAME_OVER = pygame.USEREVENT + 1 # GAME OVER
 
-SCORE = 0
+INITIAL_ANIMATION = True
 
 FONT = pygame.font.SysFont("consolas", 30)
 
-
-with open(fileLocation + "/.HighScore.txt", "a+") as file1: # To create HighScore.txt file if it didn't exist
-    print(file1.read())
-with open(fileLocation + "/.HighScore.txt", "r") as file1:
-    if file1.read() == "":
-        HIGH_SCORE = 0
-    else:
-        with open(fileLocation + "/.HighScore.txt", "r") as file2:
-            HIGH_SCORE = int(file2.read())
-
-INITIAL_ANIMATION = True
 
 
 
@@ -95,7 +84,22 @@ def draw_end(winner_text):
     gameDisplay.blit(BACKGROUND_IMG, (0, 0))
     blit_text(gameDisplay, winner_text, (20, 20), FONT, BLACK)
     pygame.display.update()
-    pygame.time.delay(1000*5) # 3 seconds
+    pygame.time.delay(1000*3) # 3 seconds
+
+def ask_restart():
+    end_text = "\n\n\n\n\n\n\n\n\nRestart The Game Press SpaceBar\nEnter Any Other Key To Quit.\n"
+    while True:
+        gameDisplay.fill(BLACK)
+        gameDisplay.blit(BACKGROUND_IMG, (0, 0))
+        blit_text(gameDisplay, end_text, (20, 20), FONT, BLACK)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    main()
+                else:
+                    pygame.quit()
+                    sys.exit(0)
 
 
 
@@ -108,7 +112,18 @@ def main():
     bird = Bird(INITIAL_POS)
     pipes = [] # list of all the pipes that are on the screen
     global SCORE
+    SCORE = 0
     global HIGH_SCORE
+
+    with open(fileLocation + "/.HighScore.txt", "a+") as file1: # To create HighScore.txt file if it didn't exist
+        print(file1.read())
+    with open(fileLocation + "/.HighScore.txt", "r") as file1:
+        if file1.read() == "":
+            HIGH_SCORE = 0
+        else:
+            with open(fileLocation + "/.HighScore.txt", "r") as file2:
+                HIGH_SCORE = int(file2.read())
+
 
     while start:
         text =  "\n\n\n    Welcome To Flappy Bird\n\n"\
@@ -162,8 +177,9 @@ def main():
                     text = "\n\n\n\n\n\n\n\n\nYour Score: " + str(SCORE) + ", High Score: " + str(HIGH_SCORE)
                 running = False
                 draw_end(text)
-                pygame.quit()
-                sys.exit(0)
+                ask_restart()
+
+
 
         bird.bird_jump(jump) # bird's movement
         gameDisplay.fill(BLACK)
@@ -207,8 +223,7 @@ def main():
                     text = "\n\n\n\n\n\n\n\n\nYour Score: " + str(SCORE) + ", High Score: " + str(HIGH_SCORE)
                 running = False
                 draw_end(text)
-                pygame.quit()
-                sys.exit(0)
+                ask_restart()
 
 
         
