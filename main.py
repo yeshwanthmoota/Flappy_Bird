@@ -94,6 +94,10 @@ def ask_restart():
         blit_text(gameDisplay, end_text, (20, 20), FONT, BLACK)
         pygame.display.update()
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     main()
@@ -104,7 +108,7 @@ def ask_restart():
 
 
 def main():
-    channel1.play(BACKGROUND_MUSIC, -1)
+    channel1.play(BACKGROUND_MUSIC, -1) 
     clock = pygame.time.Clock()
     running = True
     start = True

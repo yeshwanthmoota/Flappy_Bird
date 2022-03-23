@@ -20,9 +20,11 @@ class Bird:
 
 class Pipes: # one pipe object applies to a pair of pipes
     def __init__(self): # a Random pipe should be generated
-        random_length = (random.random())*(HEIGHT/1.5) # some random length is generated
-        # 100 is the minimum length of the down pipe if the GAP value is 160
+        random_length = (random.random())*((7/8)*(HEIGHT/1.5)) + (HEIGHT/8) # some random length is generated
+        # Let's say the minimum value of upper_pipe_length = 100px => HEIGHT/8
+        # => x + (0-1)y = HEIGHT/1.5 & x + y(1) = HEIGHT/1.5 && x + y(0) = HEIGHT/8 => x = HEIGHT/8 and y = (7/8) * HEIGHT
         # now a pipe of random length but a fixed gap can be generated since we have the random length
+        print(random_length)
         self.upper_pipe_length = random_length
         self.lower_pipe_length = HEIGHT - VERTICAL_GAP_BETWEEN_PIPES - random_length
         self.x = WIDTH
